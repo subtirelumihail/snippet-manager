@@ -1,0 +1,1 @@
+export const UPDATE_SNNIPET = 'UPDATE_SNNIPET';

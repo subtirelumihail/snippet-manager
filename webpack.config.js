@@ -1,37 +1,35 @@
 var webpack = require('webpack');
 var path    = require('path');
-var config  = require('./config');
 
 //Plugins
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-var cssSourceMap = config.sourcemap ? "?sourceMap" : "";
 var cssLoaderStr = [
-  "css-loader" + cssSourceMap,
-  "sass-loader" + (cssSourceMap ? cssSourceMap + '?outputStyle=expanded&sourceMap=true&sourceMapContents=true' : '')
+  "css-loader?sourceMap",
+  "sass-loader" + '?sourceMap&outputStyle=expanded&sourceMap=true&sourceMapContents=true&includePaths[]='+ path.resolve(__dirname, 'node_modules/bulma')
 ].join("!");
 
-var cssLoader = config.extract ? ExtractTextPlugin.extract("style", cssLoaderStr) : "style!" + cssLoaderStr;
+var cssLoader = ExtractTextPlugin.extract("style", cssLoaderStr);
 
 module.exports = {
     cache: true,
     debug: true,
-    devtool: config.sourcemap ? 'source-map' : null,
+    devtool: 'source-map',
     entry: [
-      './src/js/app.js'
+      './src/js/start.js'
     ],
     output: {
         path: path.join(__dirname, "build"),
         filename: "bundle[hash].js",
     },
     resolve: {
-      root: [path.resolve('./src/js/')],
+      root: [path.resolve('./src/js/'), path.resolve('./src/')],
       extensions: ['', '.js', '.jsx']
     },
     module: {
         loaders: [
-            { test: path.resolve('./src/js'),  loader: 'babel-loader'},
+            { test: path.resolve('./src/js'),  loader: 'babel-loader', exclude: /node_modules/},
             { test: /\.s?css$/, loader: cssLoader },
             { test: /\.(png|jpg|gif)$/, loader: 'url?limit=1048576' }, // inline base64 URLs for <=1MB images, direct URLs for the rest
             { test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&minetype=application/font-woff" },

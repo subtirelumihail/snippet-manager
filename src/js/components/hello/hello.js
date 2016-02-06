@@ -2,7 +2,7 @@ import React from 'react';
 
 import './hello.scss';
 
-import TestPic from '../../../images/test1.gif';
+import TestPic from 'images/test1.gif';
 
 let Hello = React.createClass({
   render() {
