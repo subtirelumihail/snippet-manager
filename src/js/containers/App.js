@@ -1,14 +1,19 @@
 import 'styles/main.scss';
 
-import React    from 'react';
+import React, { Component } from 'react';
 
-export default React.createClass({
+//Import layout elements
+import Header from 'components/header';
+import Footer from 'components/footer';
+
+export default class App extends Component {
   render() {
     return (
       <div className="App">
-      xxxxdasdasdas
+        <Header />
         {this.props.children}
+        <Footer />
       </div>
     );
   }
-});
+}

@@ -1,11 +1,15 @@
 import React    from 'react';
-import { Route } from 'react-router';
+import { Route, IndexRoute } from 'react-router';
 
 import App   from 'containers/App';
-import Hello from 'components/hello/hello';
+
+import Snippet from 'components/snippet';
 
 export default  (
   <Route path="/" component={App}>
-    <Route path="hello" component={Hello}/>
+    <IndexRoute component={Snippet}/>
+    <Route path="/new" component={Snippet} />
+    <Route path="/list" component={App} />
+    <Route path="*" component={Snippet} />
   </Route>
 );

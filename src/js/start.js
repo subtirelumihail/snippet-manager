@@ -6,4 +6,4 @@ import configureStore from 'store/configureStore';
 
 const store = configureStore();
 
-render(<Root store={store} />, document.querySelector('.app'));
+render(<Root store={store} />, document.querySelector('.root'));
