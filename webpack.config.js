@@ -7,6 +7,7 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var cssLoaderStr = [
   "css-loader?sourceMap",
+  "postcss-loader",
   "sass-loader" + '?sourceMap&outputStyle=expanded&sourceMap=true&sourceMapContents=true&includePaths[]='+ path.resolve(__dirname, 'node_modules/bulma')
 ].join("!");
 
