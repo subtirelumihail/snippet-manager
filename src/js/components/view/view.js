@@ -18,7 +18,7 @@ class SnippetView extends Component {
     const {snippet} = this.props;
     
     if (!Object.keys(snippet).length) {
-      return <div>No snippet found!</div>;
+      return (<div>No snippet found!</div>);
     }
     
     const {title, author, description, content} = snippet[Object.keys(snippet)[0]];

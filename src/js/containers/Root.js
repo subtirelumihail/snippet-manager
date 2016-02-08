@@ -15,10 +15,6 @@ export default class Root extends Component {
   }
 }
 
-browserHistory.listen(function(ev) {
-  console.log('listen', ev.pathname);
-});
-
 Root.propTypes = {
   store: PropTypes.object.isRequired
 };
