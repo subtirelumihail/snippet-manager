@@ -65,7 +65,7 @@ export function saveSuccesfully(url) {
         toggleSaving(),
         toggleModal()
       ]));
-      dispatch(routeActions.push(`/${url}`));
+      dispatch(routeActions.push(`/snippets/${url}`));
     }, 1500);
   };
 }

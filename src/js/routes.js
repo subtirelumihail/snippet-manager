@@ -12,6 +12,6 @@ export default  (
     <IndexRoute component={Snippet}/>
     <Route path="new" component={Snippet} />
     <Route path="list" component={List} />
-    <Route path=":url" component={View} />
+    <Route path="snippets/:url" component={View} />
   </Route>
 );

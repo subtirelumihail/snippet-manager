@@ -21,7 +21,7 @@ class List extends Component {
     return (
       <tr key={`${url}-${index}`}>
         <td className="is-cell-narrow">{title}</td>
-        <td className="is-cell-narrow"><Link to={`/${url}`}>/{url}</Link></td>
+        <td className="is-cell-narrow"><Link to={`/snippets/${url}`}>/{url}</Link></td>
         <td>{description}</td>
       </tr>
     );
