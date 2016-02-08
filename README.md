@@ -15,6 +15,7 @@
 
 ## To do
 
+- add temp save to localstorage in case user does a refresh on the page
 - add code highlight to snippet form
 - add db validation rules
 - fix duplicate entries
