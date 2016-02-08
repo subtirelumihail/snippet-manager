@@ -1,27 +1,34 @@
 import React, { Component, PropTypes } from 'react';
-import {connect}            from 'react-redux';
+import {connect}      from 'react-redux';
+import c              from 'classnames';
+import slug           from 'slug';
 
 //import components
-import Textarea             from 'react-textarea-autosize';
-import Modal                from 'react-modal';
+import Textarea   from 'react-textarea-autosize';
+import Modal      from 'react-modal';
 
-import {canSave, toggleModal} from 'actions';
+import {canSave, toggleModal, toggleSaving, saveSuccesfully} from 'actions';
+
+//Load the services
+import {saveSnippet}   from 'services';
 
 class Snippet extends Component {
-  renderDetails() {
-    const {snippet} = this.props;
+  constructor(props) {
+    super(props);
+    this.saveSnippet = this.saveSnippet.bind(this);
+  }
+  
+  saveSnippet() {
+    const {title, author, description, content} = this.refs;
+    this.props.startSaving();
     
-    if (!snippet) {
-      return null;
-    }
-    
-    return (
-      <div className="snippet-details">
-        <h2>{snippet.title}</h2>
-        <p><b>Author:</b>{snippet.author}</p>
-        <p><b>Description:</b>{snippet.description}</p>
-      </div>
-    );
+    saveSnippet({
+      title: title.value,
+      author: author.value,
+      description: description.value,
+      content: content.value,
+      url: slug(title.value.toLowerCase())
+    }, this.props.handleOnSaveSuccesfully);
   }
   
   renderSaveForm() {
@@ -36,24 +43,27 @@ class Snippet extends Component {
       }
     };
     
-    const {modalOpen, closeModal} = this.props;
+    const {modalOpen, closeModal, isSaving} = this.props;
+    const saveButtonStyle = c("button", "is-primary", {
+      "is-loading": isSaving
+    });
     
     return (
       <Modal isOpen={modalOpen} style={customStyles}>
         <div className="snippet-saveForm">
           <p className="control">
-            <input className="input" type="text" placeholder="Title"/>
+            <input ref="title" className="input" type="text" disabled={isSaving} placeholder="Title"/>
           </p>
           <p className="control">
-            <input className="input" type="text" placeholder="Author"/>
+            <input ref="author" className="input" type="text" disabled={isSaving} placeholder="Author"/>
           </p>
           <p className="control">
-            <textarea className="textarea" placeholder="Description"></textarea>
+            <textarea ref="description" className="textarea" disabled={isSaving} placeholder="Description"></textarea>
           </p>
           <p className="control">
-            <button className="button is-primary">Save</button>
+            <button className={saveButtonStyle} disabled={isSaving} onClick={this.saveSnippet}>Save</button>
             &nbsp;
-            <button className="button" onClick={closeModal}>Cancel</button>
+            <button className="button" disabled={isSaving} onClick={closeModal}>Cancel</button>
           </p>
         </div>
       </Modal>
@@ -64,9 +74,8 @@ class Snippet extends Component {
     const {handleOnChange} = this.props;
     return (
       <div className="snippet">
-        {this.renderDetails()}
         <div className="snippet-container">
-          <Textarea className="snippet-editor" placeholder="Paste here..." onChange={handleOnChange}/>
+          <Textarea ref="content" defaultValue="" className="snippet-editor" placeholder="Paste here..." onChange={handleOnChange}/>
         </div>
         {this.renderSaveForm()}
       </div>
@@ -76,11 +85,13 @@ class Snippet extends Component {
 
 Snippet.propTypes = {
   modalOpen: PropTypes.bool.isRequired,
+  isSaving: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => {
   return {
-    modalOpen: state.modalOpen
+    modalOpen: state.modalOpen,
+    isSaving: state.isSaving
   };
 };
 
@@ -90,8 +101,16 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(toggleModal());
     },
     
+    startSaving: () => {
+      dispatch(toggleSaving());
+    },
+    
     handleOnChange: (e) => {
       dispatch(canSave(e.target.value));
+    },
+    
+    handleOnSaveSuccesfully: () => {
+      dispatch(saveSuccesfully());
     }
   };
 };
