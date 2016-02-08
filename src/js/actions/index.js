@@ -6,6 +6,8 @@ export const LOADING_STOP     = 'LOADING_STOP';
 export const SNIPPET_LOADED   = 'SNIPPET_LOADED';
 export const TOGGLE_SAVING    = 'TOGGLE_SAVING';
 export const SNIPPETS_LOADED  = 'SNIPPETS_LOADED';
+export const CLEAN_CONTENT    = 'CLEAN_CONTENT';
+export const UPDATE_CONTENT   = 'UPDATE_CONTENT';
 
 import { batchActions }   from 'redux-batched-actions';
 import { routeActions } from 'react-router-redux';
@@ -53,6 +55,19 @@ export function loadingStop() {
 export function toggleSaving() {
   return {
     type: TOGGLE_SAVING
+  };
+}
+
+export function cleanContent() {
+  return {
+    type: CLEAN_CONTENT
+  };
+}
+
+export function updateContent(content) {
+  return {
+    type: UPDATE_CONTENT,
+    content
   };
 }
 

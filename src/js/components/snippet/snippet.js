@@ -8,7 +8,7 @@ import Textarea   from 'react-textarea-autosize';
 import Modal      from 'react-modal';
 
 // Load redux actions
-import {canSave, toggleModal, toggleSaving, saveSuccesfully} from 'actions';
+import {canSave, toggleModal, toggleSaving, saveSuccesfully, updateContent} from 'actions';
 
 // Load the db services
 import {saveSnippet}   from 'services';
@@ -75,11 +75,11 @@ class Snippet extends Component {
   }
   
   render() {
-    const {handleOnChange} = this.props;
+    const {handleOnChange, content} = this.props;
     return (
       <div className="snippet">
         <div className="snippet-container">
-          <Textarea ref="content" defaultValue="" className="snippet-editor" placeholder="Paste here..." onChange={handleOnChange}/>
+          <Textarea ref="content" defaultValue="" className="snippet-editor" placeholder="Paste here..." value={content} onChange={handleOnChange}/>
         </div>
         {this.renderSaveForm()}
       </div>
@@ -88,14 +88,16 @@ class Snippet extends Component {
 }
 
 Snippet.propTypes = {
-  modalOpen: PropTypes.bool.isRequired,
-  isSaving: PropTypes.bool.isRequired,
+  content:    PropTypes.string.isRequired,
+  modalOpen:  PropTypes.bool.isRequired,
+  isSaving:   PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => {
   return {
-    modalOpen: state.modalOpen,
-    isSaving: state.isSaving
+    modalOpen:  state.modalOpen,
+    content:    state.content,
+    isSaving:   state.isSaving
   };
 };
 
@@ -110,12 +112,14 @@ const mapDispatchToProps = (dispatch) => {
     },
     
     handleOnChange: (e) => {
-      dispatch(canSave(e.target.value));
+      const value = e.target.value;
+      dispatch(canSave(value));
+      dispatch(updateContent(value));
     },
     
     handleOnSaveSuccesfully: (url) => {
       dispatch(saveSuccesfully(url));
-    }
+    },
   };
 };
 

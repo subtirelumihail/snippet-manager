@@ -10,7 +10,9 @@ import {
   LOADING_STOP,
   SNIPPET_LOADED,
   SNIPPETS_LOADED,
-  TOGGLE_SAVING
+  TOGGLE_SAVING,
+  CLEAN_CONTENT,
+  UPDATE_CONTENT
 } from 'actions';
 
 
@@ -84,8 +86,23 @@ const snippets = (state = [], action = {}) => {
   }
 };
 
+/**
+ * Get all snippets from firebase and send them to state
+ */
+const content = (state = '', action = {}) => {
+  switch (action.type) {
+    case CLEAN_CONTENT:
+      return '';
+    case UPDATE_CONTENT:
+      return action.content;
+    default:
+      return state;
+  }
+};
+
 const rootReducers = combineReducers({
   routing: routeReducer,
+  content,
   modalOpen,
   snippets,
   snippet,
