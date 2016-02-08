@@ -29,7 +29,7 @@ class Head extends Component {
         <div className="container">
           <div className="header-left">
             <Link className="logo header-item" to="/">SNIPJS</Link>
-            <Link className="header-tab" to="/">Snippets</Link>
+            <Link className="header-tab" to="/list">Snippets</Link>
           </div>
           <div className="header-right">
             {this.renderSaveButton()}
