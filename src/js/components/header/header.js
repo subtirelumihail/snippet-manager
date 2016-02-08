@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import {connect}                       from 'react-redux';
-// import { Link }                        from 'react-router';
+import { Link }                        from 'react-router';
 
 
 import {toggleModal} from 'actions';
@@ -28,8 +28,8 @@ class Head extends Component {
       <header className="header">
         <div className="container">
           <div className="header-left">
-            <a className="logo header-item" href="#">SNIP</a>
-            <a className="header-tab" href="#">Snippets</a>
+            <Link className="logo header-item" to="/">SNIPJS</Link>
+            <Link className="header-tab" to="/">Snippets</Link>
           </div>
           <div className="header-right">
             {this.renderSaveButton()}
@@ -38,10 +38,10 @@ class Head extends Component {
                 TODO: replace this if a react router link and add a method to
                 create a new instance for the snippet editor
               */}
-              <a className="button is-primary" href="/new">
+              <Link className="button is-primary" to="/new">
                 <i className="fa fa-edit"></i>
                 &nbsp;New
-              </a>
+              </Link>
             </span>
           </div>
         </div>

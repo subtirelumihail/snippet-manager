@@ -7,7 +7,7 @@ export default class Footer extends Component {
         <div className="container">
           <div className="content is-centered">
             <p>
-              <strong>SNIP</strong> by <a href="http://github.com/subtirelumihail">Subtirelu Mihail</a>.
+              <strong>SNIPJS</strong> by <a href="http://github.com/subtirelumihail">Subtirelu Mihail</a>.
             </p>
             <p>
               <a className="icon" href="https://github.com/jgthms/bulma">

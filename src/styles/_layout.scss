@@ -2,14 +2,23 @@
   outline: none;
 }
 
+pre {
+  background-color: transparent !important;
+  white-space: pre-wrap;
+}
+
 textarea,
 .textarea {
   resize: none;
 }
 
-.App {
+.app {
   margin: 0 auto;
   max-width: 960px;
+}
+
+.app-container {
+  margin-top: 75px;
 }
 
 .logo {
