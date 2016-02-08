@@ -45,3 +45,8 @@ pre {
 .button {
   cursor: pointer;
 }
+
+//Temp fix for the header buttons
+.header-item {
+  display: inline-block;
+}
