@@ -21,5 +21,6 @@
 - add pagination
 - add db error handler
 - add keyboard save and submit
-- add support for [static page genrator](https://github.com/markdalgleish/static-site-generator-webpack-plugin) 
+- add support for [static page genrator](https://github.com/markdalgleish/static-site-generator-webpack-plugin)
+ 
 ~~add validation to save form inputs~~
