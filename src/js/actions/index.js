@@ -8,6 +8,8 @@ export const TOGGLE_SAVING    = 'TOGGLE_SAVING';
 export const SNIPPETS_LOADED  = 'SNIPPETS_LOADED';
 export const CLEAN_CONTENT    = 'CLEAN_CONTENT';
 export const UPDATE_CONTENT   = 'UPDATE_CONTENT';
+export const HAS_ERORR        = 'HAS_ERORR';
+export const NO_ERROR         = 'NO_ERROR';
 
 import { batchActions }   from 'redux-batched-actions';
 import { routeActions } from 'react-router-redux';
@@ -68,6 +70,18 @@ export function updateContent(content) {
   return {
     type: UPDATE_CONTENT,
     content
+  };
+}
+
+export function showErrors() {
+  return {
+    type: HAS_ERORR
+  };
+}
+
+export function hideErrors() {
+  return {
+    type: NO_ERROR
   };
 }
 

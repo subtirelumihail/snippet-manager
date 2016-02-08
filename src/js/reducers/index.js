@@ -12,7 +12,9 @@ import {
   SNIPPETS_LOADED,
   TOGGLE_SAVING,
   CLEAN_CONTENT,
-  UPDATE_CONTENT
+  UPDATE_CONTENT,
+  HAS_ERORR,
+  NO_ERROR
 } from 'actions';
 
 
@@ -24,6 +26,7 @@ const canSave = (state = false, action = {}) => {
     case SAVE_ACTIVE:
       return true;
     case SAVE_INACTIVE:
+    case CLEAN_CONTENT:
       return false;
     default:
       return state;
@@ -87,7 +90,7 @@ const snippets = (state = [], action = {}) => {
 };
 
 /**
- * Get all snippets from firebase and send them to state
+ * Set the state for the snippet content editor
  */
 const content = (state = '', action = {}) => {
   switch (action.type) {
@@ -100,6 +103,18 @@ const content = (state = '', action = {}) => {
   }
 };
 
+const setSaveErrors = (state = false, action = {}) => {
+  switch (action.type) {
+    case HAS_ERORR:
+      return true;
+    case NO_ERROR:
+      return false;
+    default:
+      return state;
+  }
+};
+
+
 const rootReducers = combineReducers({
   routing: routeReducer,
   content,
@@ -108,7 +123,8 @@ const rootReducers = combineReducers({
   snippet,
   canSave,
   isSaving: saving,
-  isLoading: loading
+  isLoading: loading,
+  hasError: setSaveErrors
 });
 
 export default rootReducers;

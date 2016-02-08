@@ -8,7 +8,15 @@ import Textarea   from 'react-textarea-autosize';
 import Modal      from 'react-modal';
 
 // Load redux actions
-import {canSave, toggleModal, toggleSaving, saveSuccesfully, updateContent} from 'actions';
+import {
+  canSave,
+  toggleModal,
+  toggleSaving,
+  saveSuccesfully,
+  updateContent,
+  showErrors,
+  hideErrors
+} from 'actions';
 
 // Load the db services
 import {saveSnippet}   from 'services';
@@ -20,30 +28,47 @@ class Snippet extends Component {
   }
   
   saveSnippet() {
+    const { handleSave } = this.props;
     const {title, author, description, content} = this.refs;
     const url = slug(title.value.toLowerCase());
-    
-    this.props.startSaving();
-    
-    saveSnippet({
+
+    handleSave({
       title:        title.value,
       author:       author.value,
       description:  description.value,
       content:      content.value,
       date_added:   Date.now(),
       url
-    }, this.props.handleOnSaveSuccesfully.bind(null, url));
+    });
+  }
+  
+  renderErrorMessage() {
+    const { hasError } = this.props;
+
+    if (!hasError) {
+      return null;
+    }
+    
+    return (
+      <div className="notification is-danger">
+        <i className="fa fa-warning"></i>&nbsp;
+        Please enter a title and a author
+      </div>
+    );
   }
   
   renderSaveForm() {
+    
+    //TODO: this should me moved to classes
     const customStyles = {
       overlay: {
         zIndex: 2,
+        backgroundColor: 'rgba(0, 0, 0, 0.75)'
       },
       content : {
         margin: '0 auto',
         maxWidth: '500px',
-        maxHeight: '300px'
+        bottom: 'auto'
       }
     };
     
@@ -55,6 +80,7 @@ class Snippet extends Component {
     return (
       <Modal isOpen={modalOpen} style={customStyles}>
         <div className="snippet-saveForm">
+          <p className="subtitle">Save snippet</p>
           <p className="control">
             <input ref="title" className="input" type="text" disabled={isSaving} placeholder="Title"/>
           </p>
@@ -64,6 +90,7 @@ class Snippet extends Component {
           <p className="control">
             <textarea ref="description" className="textarea" disabled={isSaving} placeholder="Description"></textarea>
           </p>
+          {this.renderErrorMessage()}
           <p className="control">
             <button className={saveButtonStyle} disabled={isSaving} onClick={this.saveSnippet}>{isSaving ? ' ' : 'Save'}</button>
             &nbsp;
@@ -94,10 +121,13 @@ Snippet.propTypes = {
 };
 
 const mapStateToProps = (state) => {
+  const {modalOpen, content, hasError, isSaving} =  state;
+  
   return {
-    modalOpen:  state.modalOpen,
-    content:    state.content,
-    isSaving:   state.isSaving
+    modalOpen:  modalOpen,
+    content:    content,
+    hasError:   hasError,
+    isSaving:   isSaving
   };
 };
 
@@ -107,19 +137,24 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(toggleModal());
     },
     
-    startSaving: () => {
-      dispatch(toggleSaving());
-    },
-    
     handleOnChange: (e) => {
       const value = e.target.value;
       dispatch(canSave(value));
       dispatch(updateContent(value));
     },
+  
     
-    handleOnSaveSuccesfully: (url) => {
-      dispatch(saveSuccesfully(url));
-    },
+    handleSave: (data) => {
+      if (!data.title || !data.author) {
+        dispatch(showErrors());
+        return false;
+      } else {
+        dispatch(hideErrors());
+      }
+      
+      dispatch(toggleSaving());
+      saveSnippet(data, dispatch(saveSuccesfully(data.url)));
+    }
   };
 };
 
