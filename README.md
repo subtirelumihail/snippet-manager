@@ -1,12 +1,19 @@
-#How to use
+# How to use
 
-####To install: `npm i`
+## To install:
 
-####To run: `npm start`
+`npm i`
 
-####To build: `npm run build`
+## To run:
 
-####To run tests: `npm test`
+`npm start`
+
+## To build:
+
+`npm run build`
 
 
-... to be updated
+# To do
+
+- add validation to save form inputs
+- add code highlight to snippet form
