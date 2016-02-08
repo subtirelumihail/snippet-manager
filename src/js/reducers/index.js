@@ -107,6 +107,7 @@ const setSaveErrors = (state = false, action = {}) => {
   switch (action.type) {
     case HAS_ERORR:
       return true;
+    case TOGGLE_MODAL:
     case NO_ERROR:
       return false;
     default:
