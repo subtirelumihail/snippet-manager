@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=dev node server-dev.js",
-    "build": "NODE_ENV=prod webpack -p --config webpack.config --progress --profile --colors",
-    "test": "NODE_ENV=dev ./node_modules/karma/bin/karma start"
+    "start": "NODE_ENV=development node server-dev.js",
+    "build": "NODE_ENV=production webpack -p --config webpack.config --progress --profile --colors",
+    "test": "NODE_ENV=development ./node_modules/karma/bin/karma start"
   },
   "author": "",
   "license": "ISC",

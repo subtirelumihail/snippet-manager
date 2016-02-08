@@ -8,6 +8,7 @@ var port     = 8080;
 config.plugins.unshift(new webpack.HotModuleReplacementPlugin());
 config.entry.unshift("webpack/hot/dev-server");
 config.entry.unshift("webpack-dev-server/client?http://" + hostname + ":" + port);
+config.output.publicPath = "/";
 
 new WebpackDevServer(webpack(config), {
   contentBase: config.output.path,
