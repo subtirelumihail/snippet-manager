@@ -11,12 +11,8 @@ import {cleanContent} from 'actions';
 const store = configureStore();
 
 // Listen for route change so we can reset the content of the snippet
-browserHistory.listen(function(ev) {
-  switch (ev.pathname) {
-    case '/':
-    case '/new':
-      store.dispatch(cleanContent());
-  }
+browserHistory.listen( () => {
+  store.dispatch(cleanContent());
 });
 
 
