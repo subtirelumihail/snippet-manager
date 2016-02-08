@@ -55,8 +55,9 @@ Head.propTypes = {
 };
 
 const mapStateToProps = (state) => {
+  const {canSave} = state;
   return {
-    canSave: state.canSave
+    canSave: canSave
   };
 };
 

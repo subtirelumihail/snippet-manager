@@ -2,12 +2,6 @@
   outline: none;
 }
 
-// Fix bulma pre background color to transparent and make pre wrap words
-pre {
-  background-color: transparent !important;
-  white-space: pre-wrap;
-}
-
 textarea,
 .textarea {
   resize: none;
@@ -28,6 +22,13 @@ textarea,
   font-family: sans-serif
 }
 
+// ===== Bulma fixes ===== //
+
+// Fix bulma pre background color to transparent and make pre wrap words
+pre {
+  background-color: transparent !important;
+  white-space: pre-wrap;
+}
 
 // Bulma Modifiers -- for a bug with the rendering of the is-loading
 // button text not disappering
@@ -38,4 +39,9 @@ textarea,
 // Fix table cells width
 .is-cell-narrow {
   width: 25%;
+}
+
+// Add cursor to all buttons
+.button {
+  cursor: pointer;
 }

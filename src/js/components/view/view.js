@@ -61,8 +61,10 @@ SnippetView.propTypes = {
 };
 
 const mapStateToProps = (state) => {
+  const {snippet} = state;
+  
   return {
-    snippet: state.snippet
+    snippet: snippet
   };
 };
 

@@ -68,8 +68,10 @@ List.propTypes = {
 };
 
 const mapStateToProps = (state) => {
+  const {snippets} = state;
+  
   return {
-    snippets: state.snippets
+    snippets: snippets
   };
 };
 

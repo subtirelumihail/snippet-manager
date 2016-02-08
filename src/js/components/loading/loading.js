@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import {connect}            from 'react-redux';
 
-// Import the loading image 
+// Import the loading image
 import loading from 'images/ripple.gif';
 
 class Loading extends Component {
@@ -21,8 +21,9 @@ Loading.propTypes = {
 };
 
 const mapStateToProps = (state) => {
+  const {isLoading} = state;
   return {
-    isLoading: state.isLoading
+    isLoading: isLoading
   };
 };
 
