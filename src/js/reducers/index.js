@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
-import _                   from 'lodash';
+import { routeReducer }    from 'react-router-redux';
+
 
 import {
   SAVE_ACTIVE,
@@ -8,9 +9,14 @@ import {
   LOADING_START,
   LOADING_STOP,
   SNIPPET_LOADED,
+  SNIPPETS_LOADED,
   TOGGLE_SAVING
 } from 'actions';
 
+
+/**
+ *  Check if the save button should be displayed or not
+ */
 const canSave = (state = false, action = {}) => {
   switch (action.type) {
     case SAVE_ACTIVE:
@@ -42,6 +48,9 @@ const loading = (state = false, action = {}) => {
   }
 };
 
+/**
+ *  Toggle the saving state
+ */
 const saving = (state = false, action = {}) => {
   switch (action.type) {
     case TOGGLE_SAVING:
@@ -51,6 +60,9 @@ const saving = (state = false, action = {}) => {
   }
 };
 
+/**
+ * Get the snippet from the url and save it in state
+ */
 const snippet = (state = {}, action = {}) => {
   switch (action.type) {
     case SNIPPET_LOADED:
@@ -60,8 +72,22 @@ const snippet = (state = {}, action = {}) => {
   }
 };
 
+/**
+ * Get all snippets from firebase and send them to state
+ */
+const snippets = (state = [], action = {}) => {
+  switch (action.type) {
+    case SNIPPETS_LOADED:
+      return action.snippets ? Object.keys(action.snippets).map(key => action.snippets[key]).reverse() : state;
+    default:
+      return state;
+  }
+};
+
 const rootReducers = combineReducers({
+  routing: routeReducer,
   modalOpen,
+  snippets,
   snippet,
   canSave,
   isSaving: saving,

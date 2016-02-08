@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import {connect}      from 'react-redux';
-import c              from 'classnames';
-import slug           from 'slug';
+import {connect}        from 'react-redux';
+import c                from 'classnames';
+import slug             from 'slug';
+import { routeActions } from 'react-router-redux';
 
 //import components
 import Textarea   from 'react-textarea-autosize';
@@ -20,15 +21,18 @@ class Snippet extends Component {
   
   saveSnippet() {
     const {title, author, description, content} = this.refs;
+    const url = slug(title.value.toLowerCase());
+    
     this.props.startSaving();
     
     saveSnippet({
-      title: title.value,
-      author: author.value,
-      description: description.value,
-      content: content.value,
-      url: slug(title.value.toLowerCase())
-    }, this.props.handleOnSaveSuccesfully);
+      title:        title.value,
+      author:       author.value,
+      description:  description.value,
+      content:      content.value,
+      date_added:   Date.now(),
+      url
+    }, this.props.handleOnSaveSuccesfully.bind(null, url));
   }
   
   renderSaveForm() {
@@ -61,7 +65,7 @@ class Snippet extends Component {
             <textarea ref="description" className="textarea" disabled={isSaving} placeholder="Description"></textarea>
           </p>
           <p className="control">
-            <button className={saveButtonStyle} disabled={isSaving} onClick={this.saveSnippet}>Save</button>
+            <button className={saveButtonStyle} disabled={isSaving} onClick={this.saveSnippet}>{isSaving ? ' ' : 'Save'}</button>
             &nbsp;
             <button className="button" disabled={isSaving} onClick={closeModal}>Cancel</button>
           </p>
@@ -109,8 +113,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(canSave(e.target.value));
     },
     
-    handleOnSaveSuccesfully: () => {
-      dispatch(saveSuccesfully());
+    handleOnSaveSuccesfully: (url) => {
+      dispatch(saveSuccesfully(url));
     }
   };
 };
