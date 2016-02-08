@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import {connect}                       from 'react-redux';
 import { Link }                        from 'react-router';
 
-
+// Load redux actions
 import {toggleModal} from 'actions';
 
 class Head extends Component {
@@ -15,10 +15,10 @@ class Head extends Component {
     
     return (
       <span className="header-item" onClick={openModal}>
-        <a className="button is-success" href="#">
+        <span className="button is-success">
           <i className="fa fa-save"></i>
           &nbsp;Save
-        </a>
+        </span>
       </span>
     );
   }

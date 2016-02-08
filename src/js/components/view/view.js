@@ -2,9 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import {connect}            from 'react-redux';
 import SyntaxHighlighter    from 'react-syntax-highlighter';
 
+// Load components
 import Loading from 'components/loading';
 
+// Load redux actions
 import {loadingStart, loadingStop, loadSnippet} from 'actions';
+
+// Load db services
 import {getSnippet}   from 'services';
 
 class SnippetView extends Component {

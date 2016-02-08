@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import {connect}            from 'react-redux';
 
-//Loader svg
+// Import the loading image 
 import loading from 'images/ripple.gif';
 
 class Loading extends Component {

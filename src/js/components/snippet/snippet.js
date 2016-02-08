@@ -2,15 +2,15 @@ import React, { Component, PropTypes } from 'react';
 import {connect}        from 'react-redux';
 import c                from 'classnames';
 import slug             from 'slug';
-import { routeActions } from 'react-router-redux';
 
-//import components
+// Load components
 import Textarea   from 'react-textarea-autosize';
 import Modal      from 'react-modal';
 
+// Load redux actions
 import {canSave, toggleModal, toggleSaving, saveSuccesfully} from 'actions';
 
-//Load the services
+// Load the db services
 import {saveSnippet}   from 'services';
 
 class Snippet extends Component {
