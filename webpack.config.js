@@ -42,7 +42,12 @@ module.exports = {
     plugins: [
       new webpack.NoErrorsPlugin(),
       new HtmlWebpackPlugin({ template: "./src/index.html", inject: 'body' }),
-      new ExtractTextPlugin("[contenthash].css")
+      new ExtractTextPlugin("[contenthash].css"),
+      new webpack.DefinePlugin({
+                 "process.env": {
+                     NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+                 }
+      }),
     ]
 
 };
