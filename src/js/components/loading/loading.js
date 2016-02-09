@@ -23,7 +23,7 @@ Loading.propTypes = {
 const mapStateToProps = (state) => {
   const {isLoading} = state;
   return {
-    isLoading: isLoading
+    isLoading
   };
 };
 

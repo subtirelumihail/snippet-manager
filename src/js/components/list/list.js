@@ -71,7 +71,7 @@ const mapStateToProps = (state) => {
   const {snippets} = state;
   
   return {
-    snippets: snippets
+    snippets
   };
 };
 

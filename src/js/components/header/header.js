@@ -34,10 +34,6 @@ class Head extends Component {
           <div className="header-right">
             {this.renderSaveButton()}
             <span className="header-item">
-              {/*
-                TODO: replace this if a react router link and add a method to
-                create a new instance for the snippet editor
-              */}
               <Link className="button is-primary" to="/new">
                 <i className="fa fa-edit"></i>
                 &nbsp;New
@@ -57,7 +53,7 @@ Head.propTypes = {
 const mapStateToProps = (state) => {
   const {canSave} = state;
   return {
-    canSave: canSave
+    canSave
   };
 };
 

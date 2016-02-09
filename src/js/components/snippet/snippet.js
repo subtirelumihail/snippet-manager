@@ -124,10 +124,10 @@ const mapStateToProps = (state) => {
   const {modalOpen, content, hasError, isSaving} =  state;
   
   return {
-    modalOpen:  modalOpen,
-    content:    content,
-    hasError:   hasError,
-    isSaving:   isSaving
+    modalOpen,
+    content,
+    hasError,
+    isSaving
   };
 };
 
